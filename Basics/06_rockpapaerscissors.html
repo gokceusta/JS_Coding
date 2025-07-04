@@ -1,0 +1,67 @@
+ <!DOCTYPE html>
+ <html>
+    <head>
+        <title>Rock Paper Scissors 0.2</title> 
+        <button onclick="pickUserMove('Rock')">Rock</button>
+        <button onclick="pickUserMove('Paper')">Paper</button>
+        <button onclick="pickUserMove('Scissors')">Scissors</button>
+    </head>
+    <body>
+        <script>
+            function pickCompMove(){
+                let compMove;
+                const pickCompMove = Math.floor(Math.random() * 3) + 1;
+
+                if(pickCompMove === 1){
+                    compMove = 'Rock';
+                } 
+                else if(pickCompMove === 2){
+                    compMove = 'Paper';
+                }
+                else if(pickCompMove === 3){
+                    compMove = 'Scissors';
+                }
+                return compMove;
+            }
+             function pickUserMove(userMove){
+                const computerMove = pickCompMove();
+                let result;
+                if(userMove === 'Rock'){
+                    if(computerMove === 'Rock'){
+                        result ='Tie';
+                    }
+                    else if(computerMove === 'Paper'){
+                        result ='You Lose';
+                    }
+                    else if(computerMove === 'Scissors'){
+                        result ='You Win';
+                    }
+                }
+                if(userMove === 'Paper'){
+                    if(computerMove === 'Rock'){
+                        result ='You Win';
+                    }
+                    else if(computerMove === 'Paper'){
+                        result ='Tie';
+                    }
+                    else if(computerMove === 'Scissors'){
+                        result ='You Lose';
+                    }
+                }
+                if(userMove === 'Scissors'){
+                    if(computerMove === 'Rock'){
+                        result ='You Lose';
+                    }
+                    else if(computerMove === 'Paper'){
+                        result ='You Win';
+                    }
+                    else if(computerMove === 'Scissors'){
+                        result ='Tie';
+                    }
+                } 
+                alert(`You: ${userMove}\nComputer: ${computerMove}\nResult: ${result}`);           
+             }
+
+        </script>
+    </body>
+ </html> 
