@@ -1,0 +1,103 @@
+ <!DOCTYPE html>
+ <html>
+    <head>
+        <title>Rock Paper Scissors 0.3</title> 
+    </head>
+        <p> Rock --- Paper --- Scissors </p>
+
+        <button onclick="pickUserMove('Rock')">Rock</button>
+        <button onclick="pickUserMove('Paper')">Paper</button>
+        <button onclick="pickUserMove('Scissors')">Scissors</button>
+        <p class="js-score"></p>
+        <button onclick="resetMove()">Reset Score</button>
+
+    <body>
+        <script>
+      
+            const score ={
+                wins: 0,
+                losses: 0,
+                ties: 0
+            };
+
+            function resetMove(){
+                score.wins = 0;
+                score.losses = 0;
+                score.ties = 0;
+                alert('Reset Completed');
+            }
+
+            document.querySelector('.js-score').innerHTML = `Wins: ${score.wins} , Losses: ${score.losses} , Tie: ${score.ties}`;
+
+            function pickCompMove(){
+                let compMove;
+                const pickCompMove = Math.floor(Math.random() * 3) + 1;
+
+                if(pickCompMove === 1){
+                    compMove = 'Rock';
+                } 
+                else if(pickCompMove === 2){
+                    compMove = 'Paper';
+                }
+                else if(pickCompMove === 3){
+                    compMove = 'Scissors';
+                }
+                return compMove;
+            }
+
+            function pickUserMove(userMove){
+                const computerMove = pickCompMove();
+                let result;
+                if(userMove === 'Rock'){
+                    if(computerMove === 'Rock'){
+                        result ='Tie';
+                    }
+                    else if(computerMove === 'Paper'){
+                        result ='You Lose';
+                    }
+                    else if(computerMove === 'Scissors'){
+                        result ='You Win';
+                    }
+                }
+                if(userMove === 'Paper'){
+                    if(computerMove === 'Rock'){
+                        result ='You Win';
+                    }
+                    else if(computerMove === 'Paper'){
+                        result ='Tie';
+                    }
+                    else if(computerMove === 'Scissors'){
+                        result ='You Lose';
+                    }
+                }
+                if(userMove === 'Scissors'){
+                    if(computerMove === 'Rock'){
+                        result ='You Lose';
+                    }
+                    else if(computerMove === 'Paper'){
+                        result ='You Win';
+                    }
+                    else if(computerMove === 'Scissors'){
+                        result ='Tie';
+                    }
+                } 
+                if(result === 'You Win'){
+                    score.wins++;
+                }
+                else if(result === 'You Lose'){
+                    score.losses++;
+                }
+                else if(result === 'Tie'){
+                    score.ties++;
+                }
+
+                localStorage.setItem('score',JSON.stringify(score));
+
+                document.querySelector('.js-score').innerHTML = `Wins: ${score.wins} , Losses: ${score.losses} , Tie: ${score.ties}`;
+
+                alert(`You: ${userMove}\nComputer: ${computerMove}\n\nResult: ${result}\nWins:${score.wins}  Losses:${score.losses}  Tie:${score.ties}`);           
+             }
+ 
+        </script>
+    </body>
+ </html> 
