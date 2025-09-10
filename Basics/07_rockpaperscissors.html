@@ -3,15 +3,21 @@
     <head>
         <title>Rock Paper Scissors 0.3</title> 
     </head>
+    <body>
+
         <p> Rock --- Paper --- Scissors </p>
 
         <button onclick="pickUserMove('Rock')">Rock</button>
         <button onclick="pickUserMove('Paper')">Paper</button>
         <button onclick="pickUserMove('Scissors')">Scissors</button>
-        <p class="js-score"></p>
-        <button onclick="resetMove()">Reset Score</button>
 
-    <body>
+
+        <p class="js-moves"></p>
+        <p class="js-result"></p>
+        <p class="js-score"></p>
+
+        <button onclick="resetMove();">Reset Score</button>
+
         <script>
       
             const score ={
@@ -21,16 +27,20 @@
             };
 
             function resetMove(){
+
                 score.wins = 0;
                 score.losses = 0;
                 score.ties = 0;
-                alert('Reset Completed');
+                localStorage.removeItem('score');
+                updateScoreElement();
             }
 
-            document.querySelector('.js-score').innerHTML = `Wins: ${score.wins} , Losses: ${score.losses} , Tie: ${score.ties}`;
+            updateScoreElement();
 
             function pickCompMove(){
+
                 let compMove;
+
                 const pickCompMove = Math.floor(Math.random() * 3) + 1;
 
                 if(pickCompMove === 1){
@@ -45,9 +55,17 @@
                 return compMove;
             }
 
+            function updateScoreElement() {
+
+                document.querySelector('.js-score').innerHTML = `Wins: ${score.wins} , Losses: ${score.losses} , Tie: ${score.ties}`;       
+            }
+
             function pickUserMove(userMove){
+
                 const computerMove = pickCompMove();
+
                 let result;
+
                 if(userMove === 'Rock'){
                     if(computerMove === 'Rock'){
                         result ='Tie';
@@ -81,6 +99,7 @@
                         result ='Tie';
                     }
                 } 
+               
                 if(result === 'You Win'){
                     score.wins++;
                 }
@@ -93,11 +112,17 @@
 
                 localStorage.setItem('score',JSON.stringify(score));
 
-                document.querySelector('.js-score').innerHTML = `Wins: ${score.wins} , Losses: ${score.losses} , Tie: ${score.ties}`;
+                updateScoreElement();
 
-                alert(`You: ${userMove}\nComputer: ${computerMove}\n\nResult: ${result}\nWins:${score.wins}  Losses:${score.losses}  Tie:${score.ties}`);           
-             }
- 
+
+
+                document.querySelector('.js-moves').innerHTML = `<br>Your move:) ${userMove} <br><br> Computer's move:) ${computerMove}`;
+
+                document.querySelector('.js-result').innerHTML = result;
+                
+              /*  alert(`You: ${userMove}\nComputer: ${computerMove}\n\nResult: ${result}\nWins:${score.wins}  Losses:${score.losses}  Tie:${score.ties}`);      */     
+            }
+  
         </script>
     </body>
  </html> 
